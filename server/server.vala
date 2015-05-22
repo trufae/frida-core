@@ -128,6 +128,15 @@ namespace Frida {
 		};
 
 		private static int main (string[] args) {
+#if LINUX
+			try {
+				configure_selinux ();
+			} catch (Error e) {
+				stdout.printf ("%s\n", e.message);
+				return 1;
+			}
+#endif
+
 			try {
 				var ctx = new OptionContext ();
 				ctx.set_help_enabled (true);
@@ -158,5 +167,9 @@ namespace Frida {
 
 			return 0;
 		}
+
+#if LINUX
+		private static extern void configure_selinux () throws Error;
+#endif
 	}
 }

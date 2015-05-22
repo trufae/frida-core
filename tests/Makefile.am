@@ -100,6 +100,7 @@ AM_CPPFLAGS = \
 	-I $(top_srcdir)/lib/interfaces \
 	-I $(top_srcdir)/lib/pipe \
 	-I $(top_srcdir)/src \
+	-I $(top_srcdir)/src/linux/libselinux/include \
 	$(FRIDA_CFLAGS) \
 	-DPKGDATADIR=\""$(pkgdatadir)"\" \
 	-DPKGLIBDIR=\""$(pkglibdir)"\" \

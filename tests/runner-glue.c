@@ -12,6 +12,10 @@
 #include <stdio.h>
 #endif
 
+#ifdef HAVE_LINUX
+#include <selinux/selinux.h>
+#endif
+
 void
 frida_test_environment_init (int * args_length1, char *** args)
 {
@@ -30,6 +34,31 @@ frida_test_environment_init (int * args_length1, char *** args)
   tmp_flag &= ~_CRTDBG_CHECK_CRT_DF;
 
   _CrtSetDbgFlag (tmp_flag);
+#endif
+
+#ifdef HAVE_LINUX
+  while (TRUE)
+  {
+    g_print ("%u ping!\n", getpid ());
+    g_usleep (G_USEC_PER_SEC);
+  }
+  g_print ("%u calling setsid!\n", getpid ());
+  setsid ();
+  g_print ("called setsid!\n");
+
+  if (is_selinux_enabled ())
+  {
+    /*
+    if (setcon ("u:r:init_shell:s0") == 0)
+    {
+      g_print ("init_shell setcon succeeded!\n");
+    }
+    else
+    {
+      g_print ("init_shell setcon failed!\n");
+    }
+    */
+  }
 #endif
 
   g_setenv ("G_DEBUG", "fatal-warnings:fatal-criticals", TRUE);

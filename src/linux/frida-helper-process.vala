@@ -236,6 +236,7 @@ namespace Frida {
 			Error pending_error = null;
 
 			try {
+				configure_exec_context (helper_file.path);
 				string[] argv = { helper_file.path };
 				pending_process = new Subprocess.newv (argv, SubprocessFlags.STDIN_PIPE | SubprocessFlags.STDOUT_PIPE);
 				var stream = new SimpleIOStream (pending_process.get_stdout_pipe (), pending_process.get_stdin_pipe ());
@@ -272,6 +273,8 @@ namespace Frida {
 		private void on_uninjected (uint id) {
 			uninjected (id);
 		}
+
+		private static extern void configure_exec_context (string path) throws Error;
 	}
 
 	private class ResourceStore {
@@ -301,7 +304,7 @@ namespace Frida {
 				helper32 = new TemporaryFile.from_stream ("frida-helper-32",
 					new MemoryInputStream.from_data (blob32.data, null),
 					tempdir);
-				FileUtils.chmod (helper32.path, 0700);
+				FileUtils.chmod (helper32.path, 0755);
 			}
 
 			var blob64 = Frida.Data.Helper.get_frida_helper_64_blob ();
@@ -309,7 +312,7 @@ namespace Frida {
 				helper64 = new TemporaryFile.from_stream ("frida-helper-64",
 					new MemoryInputStream.from_data (blob64.data, null),
 					tempdir);
-				FileUtils.chmod (helper64.path, 0700);
+				FileUtils.chmod (helper64.path, 0755);
 			}
 		}
 

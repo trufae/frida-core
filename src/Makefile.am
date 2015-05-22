@@ -90,6 +90,7 @@ backend_sources += \
 	linux/frida-helper-process.vala
 glue_sources += \
 	linux/system-linux.c \
+	linux/frida-helper-process-glue.c \
 	linux/linjector-glue.c \
 	$(libselinux_sources)
 backend_libadd += \

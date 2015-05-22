@@ -1,7 +1,8 @@
 bin_PROGRAMS = frida-server
 
 frida_server_SOURCES = \
-	server.vala
+	server.vala \
+	server-glue.c
 frida_server_CFLAGS = \
 	-w
 frida_server_LDFLAGS = \
@@ -23,6 +24,7 @@ AM_CPPFLAGS = \
 	-include config.h \
 	-I $(top_srcdir)/lib/interfaces \
 	-I $(top_srcdir)/src \
+	-I $(top_srcdir)/src/linux/libselinux/include \
 	$(FRIDA_CFLAGS) \
 	-DPKGDATADIR=\""$(pkgdatadir)"\" \
 	-DPKGLIBDIR=\""$(pkglibdir)"\"
