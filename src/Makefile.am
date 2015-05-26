@@ -117,7 +117,8 @@ backend_libraries += \
 	libfrida-helper-glue.la
 
 libfrida_helper_main_la_SOURCES = \
-	linux/frida-helper.vala
+	linux/frida-helper-application.vala \
+	linux/frida-helper-service.vala
 libfrida_helper_main_la_CFLAGS = \
 	-w
 libfrida_helper_main_la_LIBADD = \
@@ -133,7 +134,7 @@ libfrida_helper_main_la_VALAFLAGS = \
 	@FRIDA_VALAFLAGS@
 
 libfrida_helper_glue_la_SOURCES = \
-	linux/frida-helper-glue.c
+	linux/frida-helper-service-glue.c
 
 libfrida_helper_types_la_SOURCES = \
 	linux/frida-helper-types.vala
